@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#Create new local interpreter with this file path and set it by default for project in "File -> Settings -> PHP"
+
+# important! change docker phpstorm folder path
+
+MY_PARAMS="$@"
+MY_PARAMS=$(echo "$MY_PARAMS" | sed -e "s/[^ ]*ide-phpunit.php/\/path\/to\/phpstorm\/ide-phpunit.php/g")
+MY_PARAMS=$(echo "$MY_PARAMS" | sed -e "s/[^ ]*ide-phpinfo.php/\/path\/to\/phpstorm\/ide-phpinfo.php/g")
+
+#IDE_PHPUNIT_CUSTOM_LOADER = "File -> Settings -> PHPUnit -> Use Composer autoloader -> Path to script"
+#if you use "Path to phpunit.phar" or else so set another environments for file phpstorm/ide-phpunit.php
+
+# important! launch without -t argument
+# important! change container-name
+# important! your user should be sudo without password
+
+sudo docker exec -i container-name /bin/bash -c "IDE_PHPUNIT_CUSTOM_LOADER=$IDE_PHPUNIT_CUSTOM_LOADER php $MY_PARAMS"
+
+#if you execute command from some user
+# important! change user-name
+#sudo docker exec -i -u user-name container-name /bin/bash -c "IDE_PHPUNIT_CUSTOM_LOADER=$IDE_PHPUNIT_CUSTOM_LOADER php $MY_PARAMS"

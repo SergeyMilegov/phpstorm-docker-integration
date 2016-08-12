@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#Set this file path into "File -> Settings -> Terminal -> Shell path" instead of "/bin/bash"
+
+# important! change container-name
+# important! change path to docker project root
+# important! your user should be sudo without password
+
+sudo docker exec -it container-name /bin/bash -c 'cd /path/to/your/docker/project/root/; exec "${SHELL:-sh}"'
+
+#if you execute command from some user
+# important! change user-name
+#sudo docker exec -it -u user-name container-name /bin/bash -c 'cd /path/to/your/docker/project/root/; exec "${SHELL:-sh}"'
