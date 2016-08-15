@@ -17,11 +17,11 @@ IDE_PHPUNIT_ENVS=$(printenv | grep IDE_PHPUNIT | cat)
 # important! change container-name
 # important! your user should be sudo without password
 
-sudo docker exec -i container-name /bin/bash -c "IDE_PHPUNIT_ENVS php $MY_PARAMS"
+sudo docker exec -i container-name /bin/bash -c "$IDE_PHPUNIT_ENVS php $MY_PARAMS"
 
 #if you have the same directory in the docker
-#sudo docker exec -i container-name /bin/bash -c "cd $(pwd); IDE_PHPUNIT_ENVS php $MY_PARAMS"
+#sudo docker exec -i container-name /bin/bash -c "cd $(pwd); $IDE_PHPUNIT_ENVS php $MY_PARAMS"
 
 #if you execute command from some user
 # important! change user-name
-#sudo docker exec -i -u user-name container-name /bin/bash -c "IDE_PHPUNIT_ENVS php $MY_PARAMS"
+#sudo docker exec -i -u user-name container-name /bin/bash -c "$IDE_PHPUNIT_ENVS php $MY_PARAMS"
