@@ -7,15 +7,21 @@ MY_PARAMS="$@"
 MY_PARAMS=$(echo "$MY_PARAMS" | sed -e "s/[^ ]*ide-phpunit.php/\/path\/to\/phpstorm\/ide-phpunit.php/g")
 MY_PARAMS=$(echo "$MY_PARAMS" | sed -e "s/[^ ]*ide-phpinfo.php/\/path\/to\/phpstorm\/ide-phpinfo.php/g")
 
-#IDE_PHPUNIT_CUSTOM_LOADER = "File -> Settings -> PHPUnit -> Use Composer autoloader -> Path to script"
-#if you use "Path to phpunit.phar" or else so set another environments for file phpstorm/ide-phpunit.php
+# fix for  --filter /::myTest( .*)?$/
+MY_PARAMS=$(echo "$MY_PARAMS" | sed -e "s/\/\:\:/\"\/\:\:/g")
+MY_PARAMS=$(echo "$MY_PARAMS" | sed -e "s/\?\$\//\?\$\/\"/g")
+
+IDE_PHPUNIT_ENVS=$(printenv | grep IDE_PHPUNIT | cat)
 
 # important! launch without -t argument
 # important! change container-name
 # important! your user should be sudo without password
 
-sudo docker exec -i container-name /bin/bash -c "IDE_PHPUNIT_CUSTOM_LOADER=$IDE_PHPUNIT_CUSTOM_LOADER php $MY_PARAMS"
+sudo docker exec -i container-name /bin/bash -c "IDE_PHPUNIT_ENVS php $MY_PARAMS"
+
+#if you have the same directory in the docker
+#sudo docker exec -i container-name /bin/bash -c "cd $(pwd); IDE_PHPUNIT_ENVS php $MY_PARAMS"
 
 #if you execute command from some user
 # important! change user-name
-#sudo docker exec -i -u user-name container-name /bin/bash -c "IDE_PHPUNIT_CUSTOM_LOADER=$IDE_PHPUNIT_CUSTOM_LOADER php $MY_PARAMS"
+#sudo docker exec -i -u user-name container-name /bin/bash -c "IDE_PHPUNIT_ENVS php $MY_PARAMS"

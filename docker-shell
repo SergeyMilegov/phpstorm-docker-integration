@@ -5,7 +5,10 @@
 # important! change path to docker project root
 # important! your user should be sudo without password
 
-sudo docker exec -it container-name /bin/bash -c 'cd /path/to/your/docker/project/root/; exec "${SHELL:-sh}"'
+sudo docker exec -it container-name /bin/bash -c "cd /path/to/your/docker/project/root/; exec ${SHELL:-sh}"
+
+#if you have the same directory in the docker
+#sudo docker exec -it container-name /bin/bash -c "cd $(pwd); exec ${SHELL:-sh}"
 
 #if you execute command from some user
 # important! change user-name
